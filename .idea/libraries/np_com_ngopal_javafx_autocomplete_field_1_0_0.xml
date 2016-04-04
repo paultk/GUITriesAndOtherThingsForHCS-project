@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="np.com.ngopal:javafx-autocomplete-field:1.0.0" type="repository">
+    <properties maven-id="np.com.ngopal:javafx-autocomplete-field:1.0.0" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/javafx-autocomplete-field-1.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-autocomplete-field-1.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
