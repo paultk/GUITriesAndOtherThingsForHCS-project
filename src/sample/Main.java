@@ -4,10 +4,13 @@ import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableMapValue;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -23,10 +26,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Main extends Application {
 
@@ -220,6 +220,120 @@ public class Main extends Application {
             }
         });
 
+
+
+
+
+        // TODO: 05.04.2016 TRYING TO TIE <INTEGER>QUANTITY AND MENU IN AN OBSERVABLELIST
+
+        Map <String, String> myMap = new HashMap<>();
+
+        myMap.put("key1", "value1");
+        myMap.put("key2", "value2");
+        myMap.put("key3", "value3");
+
+        ObservableMap<String, String> myObservableHashMap = FXCollections.observableMap(myMap);
+
+
+
+
+
+
+
+
+// sample data
+        Map<Dish, Integer> map = new HashMap<>();
+        map.put(newDish1, 1);
+        map.put(newDish2, 2);
+        map.put(newDish3, 3);
+
+
+        // use fully detailed type for Map.Entry<String, String>
+        TableColumn<Map.Entry<Dish, Integer>, String> column1 = new TableColumn<>("Key");
+        column1.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<Dish, Integer>, String>, ObservableValue<String>>() {
+
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<Dish, Integer>, String> p) {
+                // this callback returns property for just one cell, you can't use a loop here
+                // for first column we use key
+                return new SimpleStringProperty(p.getValue().getKey().toString());
+            }
+        });
+
+        TableColumn<Map.Entry<Dish, Integer>, String> column2 = new TableColumn<>("Value");
+        column2.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<Dish, Integer>, String>, ObservableValue<String>>() {
+
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<Dish, Integer>, String> p) {
+                // for second column we use value
+                return new SimpleStringProperty(p.getValue().getValue().toString());
+            }
+        });
+
+        ObservableList<Map.Entry<Dish, Integer>> items = FXCollections.observableArrayList(map.entrySet());
+        final TableView<Map.Entry<Dish, Integer>> table2 = new TableView<>(items);
+
+        table2.getColumns().setAll(column1, column2);
+
+
+
+
+
+
+
+
+
+
+
+        /*// sample data
+        Map<String, String> map = new HashMap<>();
+        map.put("one", "One");
+        map.put("two", "Two");
+        map.put("three", "Three");
+
+
+        // use fully detailed type for Map.Entry<String, String>
+        TableColumn<Map.Entry<String, String>, String> column1 = new TableColumn<>("Key");
+        column1.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, String>, String>, ObservableValue<String>>() {
+
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<String, String>, String> p) {
+                // this callback returns property for just one cell, you can't use a loop here
+                // for first column we use key
+                return new SimpleStringProperty(p.getValue().getKey());
+            }
+        });
+
+        TableColumn<Map.Entry<String, String>, String> column2 = new TableColumn<>("Value");
+        column2.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, String>, String>, ObservableValue<String>>() {
+
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<String, String>, String> p) {
+                // for second column we use value
+                return new SimpleStringProperty(p.getValue().getValue());
+            }
+        });
+
+        ObservableList<Map.Entry<String, String>> items = FXCollections.observableArrayList(map.entrySet());
+        final TableView<Map.Entry<String,String>> table2 = new TableView<>(items);
+
+        table2.getColumns().setAll(column1, column2);
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         table.setItems(data);
         table.getColumns().addAll(firstNameCol, lastNameCol);
 
@@ -229,10 +343,31 @@ public class Main extends Application {
         vbox3.getChildren().addAll(table);
 
         VBox vbox2 = new VBox(5);
-        vbox2.getChildren().addAll(removeDish);
+        vbox2.getChildren().addAll(removeDish, table2);
 
         gridpane.add(vbox2, 1, 1);
         GridPane.setConstraints(vbox, 1, 1, 1, 2, HPos.CENTER, VPos.CENTER);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         HBox upper = new HBox(comboBox, listView);
